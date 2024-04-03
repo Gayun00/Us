@@ -1,5 +1,7 @@
+import React from "react";
 import type { Preview } from "@storybook/react";
 import "../src/app/globals.css";
+import Decorater from "./Decorator";
 
 const preview: Preview = {
   parameters: {
@@ -9,6 +11,13 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    decorators: [
+      (Story) => (
+        <Decorater>
+          <Story />
+        </Decorater>
+      ),
+    ],
   },
 };
 
