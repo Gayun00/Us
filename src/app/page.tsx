@@ -1,7 +1,7 @@
 "use client";
 
 import { useContentsInfiniteQuery } from "@/queries/contents";
-import Header from "@/components/Header";
+import Header from "@/components/layouts/Header";
 import ContentCard from "@/components/cards/ContentCard";
 import MainLayout from "@/components/layouts/MainLayout";
 import "./globals.css";
