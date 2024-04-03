@@ -19,7 +19,9 @@ import {
 import { useLoginMutation } from "@/queries";
 import { UserRecord } from "@/types/httpRequest";
 import { STORAGE_KEY } from "@/constants";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { updateUser } from "@/store/slices/userSlice";
 
 const formSchema = z.object({
   id: z.string().min(2).max(50),
@@ -28,13 +30,14 @@ const formSchema = z.object({
 
 const LoginPage = () => {
   const route = useRouter();
+  const dispatch = useDispatch();
   const mutation = useLoginMutation();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      // 테스트를 위한 임시 초깃값 설정
-      id: "johndoh@us-all.cc",
-      password: "qwer1234",
+      id: "",
+      password: "",
     },
   });
 
@@ -57,8 +60,7 @@ const LoginPage = () => {
   };
 
   const updateUserInfo = (info: UserRecord) => {
-    // TODO: 유저정보 상태 업데이트
-    console.log(info);
+    dispatch(updateUser(info));
   };
 
   return (

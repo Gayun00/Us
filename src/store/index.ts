@@ -1,11 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "@/store/slices/exampleSlice";
+import userReducer from "@/store/slices/userSlice";
 
-export const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-  },
-});
+export const makeStore = () => {
+  return configureStore({
+    reducer: {
+      user: userReducer,
+    },
+  });
+};
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export type AppStore = ReturnType<typeof makeStore>;
+export type RootState = ReturnType<AppStore["getState"]>;
+export type AppDispatch = AppStore["dispatch"];
