@@ -6,6 +6,7 @@ export interface RequestParams<TParams = Params> {
   method?: RequestMethod;
   params?: TParams;
   queryParams?: TParams;
+  shouldAuthorize?: boolean;
 }
 
 export interface LoginRequest {
@@ -30,4 +31,58 @@ export interface UserRecord {
 export interface LoginResponse {
   record: UserRecord;
   token: string;
+}
+
+export interface GetContentsSearchParams {
+  expand: string;
+  perPage: number;
+  page: number;
+}
+
+export interface AuthorData {
+  collectionId: string;
+  collectionName: string;
+  created: string;
+  id: string;
+  job: string;
+  name: string;
+  profileImage: string;
+  updated: string;
+}
+
+export interface NewsData {
+  collectionId: string;
+  collectionName: string;
+  created: string;
+  description: string;
+  id: string;
+  imageUrl: string;
+  title: string;
+  updated: string;
+}
+
+export interface Content {
+  author: string;
+  collectionId: string;
+  collectionName: string;
+  created: string;
+  expand: {
+    author: AuthorData;
+    news: NewsData;
+  };
+  id: string;
+  mediaUrl: string;
+  news: string;
+  text: string;
+  title: string;
+  type: string;
+  updated: string;
+}
+
+export interface GetContentsResponse {
+  page: number;
+  perPage: number;
+  totalItems: number;
+  totalPages: number;
+  items: Content[];
 }
