@@ -1,5 +1,6 @@
 import { getContentById, getContents } from "@/apis/contents";
 import { GetContentByIdParams, GetContentsResponse } from "@/types/httpRequest";
+import { getDehydratedQuery } from "@/utils/reactQuery";
 import { useQuery, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 export const contentsQueryKey = {
@@ -27,6 +28,16 @@ export const useContentsInfiniteQuery = () => {
       }
     },
     initialPageParam: 1,
+  });
+};
+
+export const getDehydratedContentByIdQuery = ({
+  id,
+  expand,
+}: GetContentByIdParams) => {
+  return getDehydratedQuery({
+    queryKey: contentsQueryKey.content(id),
+    queryFn: () => getContentById({ id, expand }),
   });
 };
 
