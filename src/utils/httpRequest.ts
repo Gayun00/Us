@@ -1,4 +1,4 @@
-import { URL } from "@/constants";
+import { STORAGE_KEY, URL } from "@/constants";
 import { RequestParams } from "@/types/httpRequest";
 
 const headers: HeadersInit = {
@@ -10,12 +10,13 @@ const fetchRequest = <TParams>({
   method,
   queryParams,
   params,
+  shouldAuthorize,
 }: RequestParams<TParams>) => {
   const convertedParams = queryParams
     ? Object.entries(queryParams).reduce(
         (newObj: Record<string, string>, [key, value]) => {
           if (typeof value === "string") {
-            newObj[key] = value;
+            newObj[key] = decodeURIComponent(value);
           } else if (typeof value === "number") {
             newObj[key] = value.toString();
           }
@@ -24,6 +25,11 @@ const fetchRequest = <TParams>({
         {}
       )
     : "";
+
+  if (shouldAuthorize) {
+    const token = localStorage.getItem(STORAGE_KEY.TOKEN);
+    headers.Authorization = token ? `Bearer ${token}` : "";
+  }
 
   const searchParams = new URLSearchParams(convertedParams).toString();
 
