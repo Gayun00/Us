@@ -30,7 +30,7 @@ export const Primary: Story = {
     children: (
       <Component>
         <Component.Author {...author} />
-        <Component.TextContent title="title" text="text" />
+        <Component.TextContent title="title" text="text" type="video" id="id" />
         <Component.RefContent {...news} />
       </Component>
     ),
