@@ -18,7 +18,7 @@ const GlobalLayout = ({ children }: Props) => {
   return (
     <div>
       <Header />
-      {children}
+      <div className="pt-[100px]">{children}</div>
     </div>
   );
 };
