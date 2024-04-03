@@ -5,10 +5,10 @@ import Header from "@/components/layouts/Header";
 import ContentCard from "@/components/cards/ContentCard";
 import MainLayout from "@/components/layouts/MainLayout";
 import InfiniteScrollTrigger from "@/components/InfiniteScrollTrigger";
-import "./globals.css";
 import SuspenseBoundary from "@/components/SuspenseBoundary";
 import LoadError from "@/components/fallbacks/LoadError";
 import ContentsSkeletons from "@/components/fallbacks/ContentsSkeleton";
+import "./globals.css";
 
 export default function Home() {
   return (
@@ -25,7 +25,7 @@ export default function Home() {
   );
 }
 
-export const ContentsList = () => {
+const ContentsList = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useContentsInfiniteQuery();
 
