@@ -5,6 +5,9 @@ const nextConfig = {
       {
         hostname: "imgnews.pstatic.net",
       },
+      {
+        hostname: "uxwing.com",
+      },
     ],
   },
 };
