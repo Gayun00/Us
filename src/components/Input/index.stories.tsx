@@ -10,5 +10,10 @@ export default meta;
 type Story = StoryObj<typeof Component>;
 
 export const Primary: Story = {
-  args: {},
+  args: {
+    label: "Email",
+    placeholder: "Enter your email address",
+    id: "email",
+    type: "email",
+  },
 };

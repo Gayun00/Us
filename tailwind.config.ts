@@ -29,6 +29,10 @@ const config = {
       colors: {
         us: {
           primary: "#13C296",
+          gray: {
+            border: "#DFE4EA",
+            placeholder: "#9CA3AF",
+          },
         },
 
         border: "hsl(var(--border))",
