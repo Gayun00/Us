@@ -11,7 +11,9 @@ type UseIntersectionObserverArgs = {
 
 const useIntersectionObserver = ({
   onIntersect,
-  options = {},
+  options = {
+    threshold: 0.1,
+  },
 }: UseIntersectionObserverArgs) => {
   const targetRef = useRef<HTMLDivElement>(null);
   const [isIntersecting, setIntersecting] = useState(false);
