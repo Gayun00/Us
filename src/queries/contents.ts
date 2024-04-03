@@ -1,15 +1,15 @@
 import { getContents } from "@/apis/contents";
 import { GetContentsResponse } from "@/types/httpRequest";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 const queryKey = {
   all: ["contents"],
 };
 
-const CONTENTS_LIMIT = 5;
+export const CONTENTS_LIMIT = 5;
 
 export const useContentsInfiniteQuery = () => {
-  return useInfiniteQuery({
+  return useSuspenseInfiniteQuery({
     queryKey: queryKey.all,
     queryFn: async ({ pageParam = 0 }) => {
       return getContents({
