@@ -11,12 +11,14 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useLoginMutation } from "@/queries";
+import { UserRecord } from "@/types/httpRequest";
+import { STORAGE_KEY } from "@/constants";
 
 const formSchema = z.object({
   id: z.string().min(2).max(50),
@@ -24,17 +26,33 @@ const formSchema = z.object({
 });
 
 const LoginPage = () => {
+  const mutation = useLoginMutation();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      id: "",
-      password: "",
+      // 테스트를 위한 임시 초깃값 설정
+      id: "johndoh@us-all.cc",
+      password: "qwer1234",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const { record, token } = await mutation.mutateAsync({
+      id: values.id,
+      password: values.password,
+    });
+    setAuthToken(token);
+    updateUserInfo(record);
+  };
+
+  const setAuthToken = (token: string) => {
+    localStorage.setITem(STORAGE_KEY.TOKEN, token);
+  };
+
+  const updateUserInfo = (info: UserRecord) => {
+    // TODO: 유저정보 상태 업데이트
+    console.log(info);
+  };
 
   return (
     <div className="flex flex-col items-center">
