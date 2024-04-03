@@ -23,7 +23,7 @@ const ContentCard = (props: Content) => {
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-[24px]">
             <Image
-              src={Logo}
+              src={author?.profileImage}
               alt="ref_content_thumbnail"
               width={80}
               height={80}
@@ -36,6 +36,7 @@ const ContentCard = (props: Content) => {
           <p className="font-normal text-base">{relativeTime}</p>
         </div>
       </CardHeader>
+      {/* TODO: click event 추가 */}
       <CardContent className="px-0 py-[15px] space-y-[15px]">
         <CardTitle className="text-[24px] font-semibold text-ellipsis overflow-hidden whitespace-nowrap">
           {props?.title}
@@ -44,29 +45,32 @@ const ContentCard = (props: Content) => {
           {props.text}
         </CardDescription>
       </CardContent>
-      <CardFooter className="p-0">
-        <div className="w-full flex items-start justify-between bg-us-gray-card rounded-xl">
-          <a
-            href={news?.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-[10px] w-[392px] h-full space-y-[8px]">
-            <p className="font-semibold text-ellipsis overflow-hidden whitespace-nowrap">
-              {news?.title}
-            </p>
-            <p className="text-ellipsis overflow-hidden whitespace-nowrap">
-              {news?.description}
-            </p>
-          </a>
-          <div className="relative w-[108px] h-[108px] rounded-r-[10px] overflow-hidden">
-            <Image
-              src={news?.imageUrl}
-              alt="ref_content_thumbnail"
-              layout="fill"
-            />
+      {/* TODO: 외부에서 렌더링 여부 제어하도록 리팩토링 */}
+      {news && (
+        <CardFooter className="p-0">
+          <div className="w-full flex items-start justify-between bg-us-gray-card rounded-xl">
+            <a
+              href={news?.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-[10px] w-[392px] h-full space-y-[8px]">
+              <p className="font-semibold text-ellipsis overflow-hidden whitespace-nowrap">
+                {news?.title}
+              </p>
+              <p className="text-ellipsis overflow-hidden whitespace-nowrap">
+                {news?.description}
+              </p>
+            </a>
+            <div className="relative w-[108px] h-[108px] rounded-r-[10px] overflow-hidden">
+              <Image
+                src={news?.imageUrl}
+                alt="ref_content_thumbnail"
+                layout="fill"
+              />
+            </div>
           </div>
-        </div>
-      </CardFooter>
+        </CardFooter>
+      )}
     </Card>
   );
 };
