@@ -59,6 +59,7 @@ export interface NewsData {
   imageUrl: string;
   title: string;
   updated: string;
+  link: string;
 }
 
 export interface Content {
