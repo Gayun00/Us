@@ -32,6 +32,8 @@ const config = {
           gray: {
             border: "#DFE4EA",
             placeholder: "#9CA3AF",
+            card: "#E7E7E7",
+            text: "#637381",
           },
         },
 
@@ -71,6 +73,7 @@ const config = {
       },
       borderRadius: {
         xs: "1px",
+        xl: "10px",
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",

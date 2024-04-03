@@ -1,4 +1,4 @@
-import { login } from "@/apis";
+import { login } from "@/apis/user";
 import { useMutation } from "@tanstack/react-query";
 
 export const useLoginMutation = () => {
