@@ -1,7 +1,7 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import WideButton from "@/components/WideButton";
+import WideButton from "@/components/buttons/WideButton";
 import Image from "next/image";
 import React from "react";
 import Logo from "@/assets/logo.svg";
@@ -16,7 +16,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useLoginMutation } from "@/queries";
+import { useLoginMutation } from "@/queries/user";
 import { UserRecord } from "@/types/httpRequest";
 import { STORAGE_KEY } from "@/constants";
 import { useRouter } from "next/navigation";
