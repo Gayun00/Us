@@ -19,7 +19,6 @@ const VideoContentPage = async ({ params }: Props) => {
   });
 
   const dehydratedState = dehydrate(queryClient);
-  // TODO: 10초 전후 이동 기능 추가
 
   return (
     <HydrateOnClient state={dehydratedState}>
