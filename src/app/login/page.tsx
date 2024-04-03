@@ -11,12 +11,17 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useLoginMutation } from "@/queries";
+import { UserRecord } from "@/types/httpRequest";
+import { STORAGE_KEY } from "@/constants";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { updateUser } from "@/store/slices/userSlice";
 
 const formSchema = z.object({
   id: z.string().min(2).max(50),
@@ -24,6 +29,10 @@ const formSchema = z.object({
 });
 
 const LoginPage = () => {
+  const route = useRouter();
+  const dispatch = useDispatch();
+  const mutation = useLoginMutation();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,9 +41,27 @@ const LoginPage = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      const { record, token } = await mutation.mutateAsync({
+        id: values.id,
+        password: values.password,
+      });
+      setAuthToken(token);
+      updateUserInfo(record);
+      route.push("/");
+    } catch (err: { message: string } | any) {
+      alert(err.message);
+    }
+  };
+
+  const setAuthToken = (token: string) => {
+    localStorage.setItem(STORAGE_KEY.TOKEN, token);
+  };
+
+  const updateUserInfo = (info: UserRecord) => {
+    dispatch(updateUser(info));
+  };
 
   return (
     <div className="flex flex-col items-center">

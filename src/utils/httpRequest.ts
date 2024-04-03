@@ -34,12 +34,12 @@ const fetchRequest = <TParams>({
       method,
       body: JSON.stringify(params),
     }
-  ).then((res) => {
+  ).then(async (res) => {
     if (res.status >= 200 && res.status < 300) {
       return res.json();
     }
-
-    throw new Error(res.status.toString());
+    const rest = await res.json();
+    throw new Error(rest.message);
   });
 };
 

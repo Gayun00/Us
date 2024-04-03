@@ -1,13 +1,9 @@
-import { getExampleRequest } from "@/apis";
-import { useQuery } from "@tanstack/react-query";
+import { login } from "@/apis";
+import { useMutation } from "@tanstack/react-query";
 
-const queryKeys = {
-  all: ["example"] as const,
-};
-
-export const useExampleQuery = () => {
-  return useQuery({
-    queryKey: queryKeys.all,
-    queryFn: async () => getExampleRequest,
+export const useLoginMutation = () => {
+  return useMutation({
+    mutationFn: async ({ id, password }: { id: string; password: string }) =>
+      login({ id, password }),
   });
 };
