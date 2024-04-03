@@ -19,6 +19,7 @@ import {
 import { useLoginMutation } from "@/queries";
 import { UserRecord } from "@/types/httpRequest";
 import { STORAGE_KEY } from "@/constants";
+import { usePathname, useRouter } from "next/navigation";
 
 const formSchema = z.object({
   id: z.string().min(2).max(50),
@@ -26,6 +27,7 @@ const formSchema = z.object({
 });
 
 const LoginPage = () => {
+  const route = useRouter();
   const mutation = useLoginMutation();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -37,16 +39,21 @@ const LoginPage = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const { record, token } = await mutation.mutateAsync({
-      id: values.id,
-      password: values.password,
-    });
-    setAuthToken(token);
-    updateUserInfo(record);
+    try {
+      const { record, token } = await mutation.mutateAsync({
+        id: values.id,
+        password: values.password,
+      });
+      setAuthToken(token);
+      updateUserInfo(record);
+      route.push("/");
+    } catch (err: { message: string } | any) {
+      alert(err.message);
+    }
   };
 
   const setAuthToken = (token: string) => {
-    localStorage.setITem(STORAGE_KEY.TOKEN, token);
+    localStorage.setItem(STORAGE_KEY.TOKEN, token);
   };
 
   const updateUserInfo = (info: UserRecord) => {
