@@ -3,11 +3,14 @@ import { Button } from "@/components/ui/button";
 
 interface Props {
   text: string;
+  type?: "submit" | "button";
 }
 
-const WideButton = ({ text }: Props) => {
+const WideButton = ({ text, type = "button" }: Props) => {
   return (
-    <Button className="w-full h-[70px] bg-us-primary text-md font-medium rounded-md">
+    <Button
+      type={type}
+      className="w-full h-[70px] bg-us-primary text-md font-medium rounded-md">
       {text}
     </Button>
   );
