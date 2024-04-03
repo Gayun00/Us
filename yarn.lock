@@ -12276,7 +12276,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsconfig-paths-webpack-plugin@npm:^4.0.1":
+"tsconfig-paths-webpack-plugin@npm:^4.0.1, tsconfig-paths-webpack-plugin@npm:^4.1.0":
   version: 4.1.0
   resolution: "tsconfig-paths-webpack-plugin@npm:4.1.0"
   dependencies:
@@ -12717,6 +12717,7 @@ __metadata:
     tailwind-merge: ^2.2.2
     tailwindcss: ^3.3.0
     tailwindcss-animate: ^1.0.7
+    tsconfig-paths-webpack-plugin: ^4.1.0
     typescript: ^5
   languageName: unknown
   linkType: soft
