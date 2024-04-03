@@ -87,3 +87,9 @@ export interface GetContentsResponse {
   totalPages: number;
   items: Content[];
 }
+
+export interface GetContentByIdParams {
+  id: string;
+  expand: string;
+}
+export interface GetContentByIdResponse extends Content {}
