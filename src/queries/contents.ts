@@ -1,9 +1,10 @@
-import { getContents } from "@/apis/contents";
-import { GetContentsResponse } from "@/types/httpRequest";
-import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
+import { getContentById, getContents } from "@/apis/contents";
+import { GetContentByIdParams, GetContentsResponse } from "@/types/httpRequest";
+import { useQuery, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 
 const queryKey = {
   all: ["contents"],
+  content: (id: string) => [...queryKey.all, id],
 };
 
 export const CONTENTS_LIMIT = 5;
@@ -11,7 +12,7 @@ export const CONTENTS_LIMIT = 5;
 export const useContentsInfiniteQuery = () => {
   return useSuspenseInfiniteQuery({
     queryKey: queryKey.all,
-    queryFn: async ({ pageParam = 0 }) => {
+    queryFn: ({ pageParam = 0 }) => {
       return getContents({
         expand: "news,author",
         perPage: CONTENTS_LIMIT,
@@ -26,5 +27,12 @@ export const useContentsInfiniteQuery = () => {
       }
     },
     initialPageParam: 1,
+  });
+};
+
+export const useContentByIdQuery = ({ id, expand }: GetContentByIdParams) => {
+  return useQuery({
+    queryKey: queryKey.content(id),
+    queryFn: () => getContentById({ id, expand }),
   });
 };
