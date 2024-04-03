@@ -13,7 +13,9 @@ const Client = ({ id }: Props) => {
     expand: "news,author",
   });
 
-  return <video className="w-full" src={data?.mediaUrl} controls />;
+  return (
+    <p className="" dangerouslySetInnerHTML={{ __html: data?.text || "" }}></p>
+  );
 };
 
 export default Client;

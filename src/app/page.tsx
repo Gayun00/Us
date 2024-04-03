@@ -10,9 +10,17 @@ import "./globals.css";
 
 export default function Home() {
   return (
-    <SuspenseBoundary Fallback={ContentsSkeletons} ErrorFallback={LoadError}>
-      <ContentsList />
-    </SuspenseBoundary>
+    <div className="min-w-[770px]">
+      <div className="pt-[41px] flex flex-col items-center">
+        <div className="w-[570px] flex flex-col space-y-[40px]">
+          <SuspenseBoundary
+            Fallback={ContentsSkeletons}
+            ErrorFallback={LoadError}>
+            <ContentsList />
+          </SuspenseBoundary>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -21,33 +29,29 @@ const ContentsList = () => {
     useContentsInfiniteQuery();
 
   return (
-    <div className="min-w-[770px]">
-      <div className="pt-[41px] flex flex-col items-center">
-        <div className="w-[570px] flex flex-col space-y-[40px]">
-          {data?.pages
-            ?.flatMap(({ items }) => items)
-            .map(({ id, title, type, text, expand }) => (
-              <ContentCard key={id}>
-                <ContentCard.Author {...expand.author} />
-                <ContentCard.TextContent
-                  title={title}
-                  text={text}
-                  type={type}
-                  id={id}
-                />
-                {expand?.news && <ContentCard.RefContent {...expand.news} />}
-              </ContentCard>
-            ))}
+    <>
+      {data?.pages
+        ?.flatMap(({ items }) => items)
+        .map(({ id, title, type, text, expand }) => (
+          <ContentCard key={id}>
+            <ContentCard.Author {...expand.author} />
+            <ContentCard.TextContent
+              title={title}
+              text={text}
+              type={type}
+              id={id}
+            />
+            {expand?.news && <ContentCard.RefContent {...expand.news} />}
+          </ContentCard>
+        ))}
 
-          {isFetchingNextPage && <ContentsSkeletons />}
+      {isFetchingNextPage && <ContentsSkeletons />}
 
-          <InfiniteScrollTrigger
-            fetchNextPage={fetchNextPage}
-            hasNextPage={hasNextPage}
-            isFetchingNextPage={isFetchingNextPage}
-          />
-        </div>
-      </div>
-    </div>
+      <InfiniteScrollTrigger
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+      />
+    </>
   );
 };
