@@ -7,7 +7,7 @@ interface Props {
 
 const WideButton = ({ text }: Props) => {
   return (
-    <Button className="w-full h-[70px] bg-us-primary text-md font-medium">
+    <Button className="w-full h-[70px] bg-us-primary text-md font-medium rounded-md">
       {text}
     </Button>
   );

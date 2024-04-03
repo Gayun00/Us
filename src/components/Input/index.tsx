@@ -5,16 +5,15 @@ import { Label } from "@/components/ui/label";
 interface Props {
   label: string;
   placeholder: string;
-  type: "email" | "password";
+  type: "email" | "password" | "username";
   id: string;
 }
 
 const Input = ({ label, placeholder, id, type }: Props) => {
   return (
     <div className="flex flex-col space-y-[10px]">
-      <Label className="text-md font-medium" htmlFor={id}>
-        {label}
-      </Label>
+      <Label className="text-md font-medium" htmlFor={id} />
+      {label}
       <ShadCnInput id={id} type={type} placeholder={placeholder} />
     </div>
   );
