@@ -13,7 +13,7 @@ const Client = ({ id }: Props) => {
     expand: "news,author",
   });
 
-  return <video className="w-full" src={data?.mediaUrl} controls />;
+  return <audio className="w-full" src={data?.mediaUrl} controls />;
 };
 
 export default Client;
