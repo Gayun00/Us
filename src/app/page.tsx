@@ -34,8 +34,8 @@ const ContentsList = () => {
       {/* TODO: layout 리팩토링 */}
       {data?.pages
         ?.flatMap(({ items }) => items)
-        .map(({ id, title, text, expand }) => (
-          <ContentCard key={id}>
+        .map(({ id, title, type, text, expand }) => (
+          <ContentCard key={id} id={id} type={type}>
             <ContentCard.Author {...expand.author} />
             <ContentCard.TextContent title={title} text={text} />
             {expand?.news && <ContentCard.RefContent {...expand.news} />}
