@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import ReactQueryProviders from "@/components/providers/ReactQueryProvider";
 import StoreProvider from "@/components/providers/StoreProvider";
 import GlobalLayout from "@/components/layouts/GlobalLayout";
+import UserProvider from "@/components/providers/UserProvider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,7 +23,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <ReactQueryProviders>
           <StoreProvider>
-            <GlobalLayout>{children}</GlobalLayout>
+            <UserProvider>
+              <GlobalLayout>{children}</GlobalLayout>
+            </UserProvider>
           </StoreProvider>
         </ReactQueryProviders>
       </body>
