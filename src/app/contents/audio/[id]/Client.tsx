@@ -7,13 +7,15 @@ import Forward from "@/assets/forward.svg";
 import Pause from "@/assets/pause.svg";
 import Play from "@/assets/play.svg";
 import Image from "next/image";
+import Loading from "@/components/fallbacks/Loading";
+import Error from "@/components/fallbacks/Error";
 
 interface Props {
   id: string;
 }
 
 const Client = ({ id }: Props) => {
-  const { data } = useContentByIdQuery({
+  const { data, isError, isLoading } = useContentByIdQuery({
     id,
     expand: "news,author",
   });
@@ -43,6 +45,9 @@ const Client = ({ id }: Props) => {
       audioRef.current.currentTime -= 10;
     }
   };
+
+  if (isLoading) return <Loading />;
+  if (isError) return <Error />;
 
   return (
     <>
