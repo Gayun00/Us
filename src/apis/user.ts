@@ -1,4 +1,8 @@
-import { LoginRequest, LoginResponse } from "@/types/httpRequest";
+import {
+  LoginRequest,
+  LoginResponse,
+  RefreshTokenResponse,
+} from "@/types/httpRequest";
 import { request } from "@/utils/httpRequest";
 
 export const login = ({ id, password }: { id: string; password: string }) => {
@@ -8,5 +12,12 @@ export const login = ({ id, password }: { id: string; password: string }) => {
       identity: id,
       password,
     },
+  });
+};
+
+export const refreshAuthToken = () => {
+  return request.post<null, RefreshTokenResponse>({
+    path: "/users/auth-refresh",
+    shouldAuthorize: true,
   });
 };

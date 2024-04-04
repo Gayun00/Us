@@ -5,6 +5,7 @@ import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { handleError } from "@/utils/handleError";
 
 export default function ReactQueryProviders({
   children,
@@ -14,6 +15,9 @@ export default function ReactQueryProviders({
       new QueryClient({
         defaultOptions: {
           queries: {},
+          mutations: {
+            onError: (err: Error) => handleError(err.message),
+          },
         },
       })
   );

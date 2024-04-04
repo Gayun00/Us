@@ -33,6 +33,11 @@ export interface LoginResponse {
   token: string;
 }
 
+export interface RefreshTokenResponse {
+  token: string;
+  record: UserRecord;
+}
+
 export interface GetContentsSearchParams {
   expand: string;
   perPage: number;
