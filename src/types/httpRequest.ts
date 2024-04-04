@@ -62,6 +62,8 @@ export interface NewsData {
   link: string;
 }
 
+export type ContentType = "video" | "audio" | "text";
+
 export interface Content {
   author: string;
   collectionId: string;
@@ -76,7 +78,7 @@ export interface Content {
   news: string;
   text: string;
   title: string;
-  type: string;
+  type: ContentType;
   updated: string;
 }
 

@@ -35,7 +35,7 @@ const Header = () => {
   });
 
   return (
-    <div className="fixed py-[24px] pr-[135px] pl-[130px] w-full h-[100px] flex justify-between items-center bg-white">
+    <div className="fixed py-[24px] pr-[135px] pl-[130px] w-full h-[100px] flex justify-between items-center bg-white z-10">
       <Link href="/">
         <Image src={Logo} alt="logo" width={52} height={52} />
       </Link>
