@@ -23,9 +23,12 @@ export const userSlice = createSlice({
     updateUser: (_, action: PayloadAction<UserRecord>) => {
       return action.payload;
     },
+    removeUser: () => {
+      return initialState;
+    },
   },
 });
 
-export const { updateUser } = userSlice.actions;
+export const { updateUser, removeUser } = userSlice.actions;
 
 export default userSlice.reducer;
