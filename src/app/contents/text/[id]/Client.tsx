@@ -13,9 +13,7 @@ const Client = ({ id }: Props) => {
     expand: "news,author",
   });
 
-  return (
-    <p className="" dangerouslySetInnerHTML={{ __html: data?.text || "" }}></p>
-  );
+  return <p dangerouslySetInnerHTML={{ __html: data?.text || "" }} />;
 };
 
 export default Client;

@@ -45,5 +45,7 @@ export const useContentByIdQuery = ({ id, expand }: GetContentByIdParams) => {
   return useQuery({
     queryKey: contentsQueryKey.content(id),
     queryFn: () => getContentById({ id, expand }),
+    enabled: !!id,
+    staleTime: 1000 * 5,
   });
 };
