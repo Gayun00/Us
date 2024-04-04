@@ -7,6 +7,8 @@ import Forward from "@/assets/forward.svg";
 import Pause from "@/assets/pause.svg";
 import Play from "@/assets/play.svg";
 import Image from "next/image";
+import Loading from "@/components/fallbacks/Loading";
+import Error from "@/components/fallbacks/Error";
 
 interface Props {
   id: string;
@@ -44,39 +46,30 @@ const Client = ({ id }: Props) => {
     }
   };
 
+  if (isLoading) return <Loading />;
+  if (isError) return <Error />;
+
   return (
     <>
-      {isLoading && <p className="text-center">Loading...</p>}
-      {isError ? (
-        <p className="text-center">에러가 발생했습니다.</p>
-      ) : (
-        <>
-          <audio
-            ref={audioRef}
-            className="w-full"
-            src={data?.mediaUrl}
-            controls
+      <audio ref={audioRef} className="w-full" src={data?.mediaUrl} controls />
+      <div className="mt-[40px] flex justify-center gap-x-8">
+        <button onClick={handleRewind}>
+          <Image src={Rewind} alt="logo" width={20} height={20} />
+        </button>
+
+        <button onClick={handlePlayPause}>
+          <Image
+            src={isPlaying ? Pause : Play}
+            alt="logo"
+            width={20}
+            height={20}
           />
-          <div className="mt-[40px] flex justify-center gap-x-8">
-            <button onClick={handleRewind}>
-              <Image src={Rewind} alt="logo" width={20} height={20} />
-            </button>
+        </button>
 
-            <button onClick={handlePlayPause}>
-              <Image
-                src={isPlaying ? Pause : Play}
-                alt="logo"
-                width={20}
-                height={20}
-              />
-            </button>
-
-            <button onClick={handleForward}>
-              <Image src={Forward} alt="logo" width={20} height={20} />
-            </button>
-          </div>
-        </>
-      )}
+        <button onClick={handleForward}>
+          <Image src={Forward} alt="logo" width={20} height={20} />
+        </button>
+      </div>
     </>
   );
 };

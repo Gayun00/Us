@@ -2,6 +2,8 @@
 
 import React from "react";
 import { useContentByIdQuery } from "@/queries/contents";
+import Loading from "@/components/fallbacks/Loading";
+import Error from "@/components/fallbacks/Error";
 
 interface Props {
   id: string;
@@ -13,16 +15,10 @@ const Client = ({ id }: Props) => {
     expand: "news,author",
   });
 
-  return (
-    <>
-      {isLoading && <p className="text-center">Loading...</p>}
-      {isError ? (
-        <p className="text-center">에러가 발생했습니다.</p>
-      ) : (
-        <video className="w-full" src={data?.mediaUrl} controls />
-      )}
-    </>
-  );
+  if (isLoading) return <Loading />;
+  if (isError) return <Error />;
+
+  return <video className="w-full" src={data?.mediaUrl} controls />;
 };
 
 export default Client;
