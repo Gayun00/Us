@@ -1,9 +1,7 @@
 "use client";
 
 import { useContentsInfiniteQuery } from "@/queries/contents";
-import Header from "@/components/layouts/Header";
 import ContentCard from "@/components/cards/ContentCard";
-import MainLayout from "@/components/layouts/MainLayout";
 import InfiniteScrollTrigger from "@/components/InfiniteScrollTrigger";
 import SuspenseBoundary from "@/components/SuspenseBoundary";
 import LoadError from "@/components/fallbacks/LoadError";
@@ -13,14 +11,15 @@ import "./globals.css";
 export default function Home() {
   return (
     <div className="min-w-[770px]">
-      <Header />
-      <MainLayout>
-        <SuspenseBoundary
-          Fallback={ContentsSkeletons}
-          ErrorFallback={LoadError}>
-          <ContentsList />
-        </SuspenseBoundary>
-      </MainLayout>
+      <div className="pt-[41px] flex flex-col items-center">
+        <div className="w-[570px] flex flex-col space-y-[40px]">
+          <SuspenseBoundary
+            Fallback={ContentsSkeletons}
+            ErrorFallback={LoadError}>
+            <ContentsList />
+          </SuspenseBoundary>
+        </div>
+      </div>
     </div>
   );
 }
@@ -31,13 +30,17 @@ const ContentsList = () => {
 
   return (
     <>
-      {/* TODO: layout 리팩토링 */}
       {data?.pages
         ?.flatMap(({ items }) => items)
-        .map(({ id, title, text, expand }) => (
+        .map(({ id, title, type, text, expand }) => (
           <ContentCard key={id}>
             <ContentCard.Author {...expand.author} />
-            <ContentCard.TextContent title={title} text={text} />
+            <ContentCard.TextContent
+              title={title}
+              text={text}
+              type={type}
+              id={id}
+            />
             {expand?.news && <ContentCard.RefContent {...expand.news} />}
           </ContentCard>
         ))}

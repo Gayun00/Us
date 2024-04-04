@@ -1,3 +1,5 @@
+"use client";
+
 import { STORAGE_KEY, URL } from "@/constants";
 import { RequestParams } from "@/types/httpRequest";
 
@@ -27,7 +29,10 @@ const fetchRequest = <TParams>({
     : "";
 
   if (shouldAuthorize) {
-    const token = localStorage.getItem(STORAGE_KEY.TOKEN);
+    const token =
+      typeof window !== "undefined"
+        ? localStorage.getItem(STORAGE_KEY.TOKEN)
+        : "";
     headers.Authorization = token ? `Bearer ${token}` : "";
   }
 
