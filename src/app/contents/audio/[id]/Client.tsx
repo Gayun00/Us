@@ -13,7 +13,7 @@ interface Props {
 }
 
 const Client = ({ id }: Props) => {
-  const { data } = useContentByIdQuery({
+  const { data, isError, isLoading } = useContentByIdQuery({
     id,
     expand: "news,author",
   });
@@ -46,25 +46,37 @@ const Client = ({ id }: Props) => {
 
   return (
     <>
-      <audio ref={audioRef} className="w-full" src={data?.mediaUrl} controls />
-      <div className="mt-[40px] flex justify-center gap-x-8">
-        <button onClick={handleRewind}>
-          <Image src={Rewind} alt="logo" width={20} height={20} />
-        </button>
-
-        <button onClick={handlePlayPause}>
-          <Image
-            src={isPlaying ? Pause : Play}
-            alt="logo"
-            width={20}
-            height={20}
+      {isLoading && <p className="text-center">Loading...</p>}
+      {isError ? (
+        <p className="text-center">에러가 발생했습니다.</p>
+      ) : (
+        <>
+          <audio
+            ref={audioRef}
+            className="w-full"
+            src={data?.mediaUrl}
+            controls
           />
-        </button>
+          <div className="mt-[40px] flex justify-center gap-x-8">
+            <button onClick={handleRewind}>
+              <Image src={Rewind} alt="logo" width={20} height={20} />
+            </button>
 
-        <button onClick={handleForward}>
-          <Image src={Forward} alt="logo" width={20} height={20} />
-        </button>
-      </div>
+            <button onClick={handlePlayPause}>
+              <Image
+                src={isPlaying ? Pause : Play}
+                alt="logo"
+                width={20}
+                height={20}
+              />
+            </button>
+
+            <button onClick={handleForward}>
+              <Image src={Forward} alt="logo" width={20} height={20} />
+            </button>
+          </div>
+        </>
+      )}
     </>
   );
 };

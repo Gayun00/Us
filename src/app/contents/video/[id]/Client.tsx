@@ -8,12 +8,21 @@ interface Props {
 }
 
 const Client = ({ id }: Props) => {
-  const { data } = useContentByIdQuery({
+  const { data, isError, isLoading } = useContentByIdQuery({
     id,
     expand: "news,author",
   });
 
-  return <video className="w-full" src={data?.mediaUrl} controls />;
+  return (
+    <>
+      {isLoading && <p className="text-center">Loading...</p>}
+      {isError ? (
+        <p className="text-center">에러가 발생했습니다.</p>
+      ) : (
+        <video className="w-full" src={data?.mediaUrl} controls />
+      )}
+    </>
+  );
 };
 
 export default Client;
