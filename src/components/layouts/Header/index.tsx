@@ -1,27 +1,22 @@
 import Image from "next/image";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import Logo from "@/assets/logo.svg";
-import { STORAGE_KEY } from "@/constants";
 import { usePathname, useRouter } from "next/navigation";
-import { removeUser } from "@/store/slices/userSlice";
-import { UserRecord } from "@/types/httpRequest";
 import { Button } from "@/components/ui/button";
 import { useContentByIdQuery } from "@/queries/contents";
+import { signOut, useSession } from "next-auth/react";
 
 const Header = () => {
-  const user = useSelector((state: { user: UserRecord }) => state.user);
-  const isLoggedIn = user.id;
   const router = useRouter();
-  const dispatch = useDispatch();
   const pathname = usePathname();
+  const session = useSession();
+  const isLoggedIn = session.status === "authenticated";
   const pathnames = pathname.split("/");
   const contentId = pathnames[pathnames.length - 1];
 
   const handleLogout = () => {
-    localStorage.removeItem(STORAGE_KEY.TOKEN);
-    dispatch(removeUser());
+    signOut();
     router.push("/login");
   };
 

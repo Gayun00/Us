@@ -22,6 +22,7 @@ import { STORAGE_KEY } from "@/constants";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { updateUser } from "@/store/slices/userSlice";
+import { signIn, useSession } from "next-auth/react";
 
 const formSchema = z.object({
   id: z.string().min(2).max(50),
@@ -29,7 +30,6 @@ const formSchema = z.object({
 });
 
 const LoginPage = () => {
-  const route = useRouter();
   const dispatch = useDispatch();
   const mutation = useLoginMutation();
 
@@ -41,15 +41,15 @@ const LoginPage = () => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
     try {
-      const { record, token } = await mutation.mutateAsync({
-        id: values.id,
-        password: values.password,
+      signIn("credentials", {
+        // TODO: 테스트 이후 빈 values 값으로 변경
+        username: "johndoh@us-all.cc",
+        password: "qwer1234",
+        redirect: true,
+        callbackUrl: "/",
       });
-      setAuthToken(token);
-      updateUserInfo(record);
-      route.push("/");
     } catch (err: { message: string } | any) {
       alert(err.message);
     }

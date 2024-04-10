@@ -13,6 +13,7 @@ const handler = NextAuth({
       async authorize(credentials, req) {
         const res = await fetch(URL.API_SERVER + "/users/auth-with-password", {
           method: "POST",
+          // TODO: 테스트 이후 빈 credentials 값으로 변경
           body: JSON.stringify({
             identity: "johndoh@us-all.cc",
             password: "qwer1234",
@@ -27,6 +28,9 @@ const handler = NextAuth({
       },
     }),
   ],
+  pages: {
+    signIn: "/login",
+  },
 });
 
 export { handler as GET, handler as POST };
